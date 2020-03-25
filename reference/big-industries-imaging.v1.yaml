@@ -246,36 +246,47 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
+      summary: Get individual tool by ID
       tags:
         - Layout
       responses: {}
       operationId: get-layout-gettool-toolID
+      description: 'Will return the tool SVG-ID, as well as the details regarding the tool. '
+      security:
+        - Bearer Token: []
   /layout/gettool:
     get:
-      summary: Your GET endpoint
+      summary: Get all tools available
       tags:
         - Layout
       responses: {}
       operationId: get-laout-gettool
-      description: 'Returns all tools available to the user paginated '
+      description: Returns all tools available to the user paginated by preference
+      security:
+        - Bearer Token: []
     parameters: []
   /layout/savelayout:
     post:
-      summary: ''
+      summary: Save Layout
       operationId: post-layout-savelayout
       responses:
         '200':
           description: OK
       tags:
         - Layout
+      description: 'Saves all of the current IDs and their positions / rotation on the layout. '
+      security:
+        - Bearer Token: []
   /layout/getsaved:
     get:
-      summary: Your GET endpoint
+      summary: Get saved layouts
       tags:
         - Layout
       responses: {}
       operationId: get-layout-getsaved
+      security:
+        - Bearer Token: []
+      description: 'Returns a list of saved layouts and their last modified dates. '
   '/layout/getsaved/{layoutID}':
     parameters:
       - schema:
@@ -284,11 +295,14 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
+      summary: Get saved layout by ID
       tags:
         - Layout
       responses: {}
       operationId: get-layout-getsaved-layoutID
+      security:
+        - Bearer Token: []
+      description: 'Returns the full layout with positional data. '
 components:
   schemas:
     User:
