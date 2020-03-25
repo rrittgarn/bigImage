@@ -162,10 +162,13 @@ paths:
                 value:
                   capturedImage: filename.png
         description: "Body should include as much information as possible. \n\nform-data is expecting an image file (png or jpg) from the capture table. "
+      tags:
+        - Tool Imaging
   /v1/brands:
     get:
       summary: Your GET endpoint
-      tags: []
+      tags:
+        - Brands
       responses:
         '200':
           description: OK
@@ -230,6 +233,8 @@ paths:
               New Brand:
                 value:
                   brandName: Ideal Tools
+      tags:
+        - Brands
 components:
   schemas:
     User:
