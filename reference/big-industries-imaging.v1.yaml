@@ -104,7 +104,64 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 'Should always match the http response code. '
+                  bigToolID:
+                    type: integer
+                    description: 'Big Industries internal id for this new tool '
+              examples:
+                New Tool Success:
+                  value:
+                    status: 200
+                    bigToolID: 202
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                  errorID:
+                    type: integer
+                  errorDescription:
+                    type: string
       description: 'Store a tool image in the Big Industries tool API. System automatically creates a vector and stores relevant information with the objects. '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                toolName:
+                  type: string
+                brandID:
+                  type: integer
+                toolDescription:
+                  type: string
+                toolPartNumber:
+                  type: string
+                toolHeight:
+                  type: string
+                scanDate:
+                  type: string
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                capturedImage: {}
+            examples:
+              ImageData:
+                value:
+                  capturedImage: filename.png
+        description: "Body should include as much information as possible. \n\nform-data is expecting an image file (png or jpg) from the capture table. "
   /v1/brands:
     get:
       summary: Your GET endpoint
