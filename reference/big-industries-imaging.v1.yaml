@@ -247,13 +247,15 @@ paths:
         required: true
     get:
       summary: Your GET endpoint
-      tags: []
+      tags:
+        - Layout
       responses: {}
       operationId: get-layout-gettool-toolID
   /layout/gettool:
     get:
       summary: Your GET endpoint
-      tags: []
+      tags:
+        - Layout
       responses: {}
       operationId: get-laout-gettool
       description: 'Returns all tools available to the user paginated '
@@ -265,10 +267,13 @@ paths:
       responses:
         '200':
           description: OK
+      tags:
+        - Layout
   /layout/getsaved:
     get:
       summary: Your GET endpoint
-      tags: []
+      tags:
+        - Layout
       responses: {}
       operationId: get-layout-getsaved
   '/layout/getsaved/{layoutID}':
@@ -280,7 +285,8 @@ paths:
         required: true
     get:
       summary: Your GET endpoint
-      tags: []
+      tags:
+        - Layout
       responses: {}
       operationId: get-layout-getsaved-layoutID
 components:
