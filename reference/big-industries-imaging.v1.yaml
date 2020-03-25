@@ -7,7 +7,7 @@ info:
     url: www.bigindustries.com/help
     email: ryan@bigindustries.com
   termsOfService: api.bigindustries.com/tos.html
-  description: 'Big Industries Imaging API. For use with our on-site customer imaging platform. '
+  description: 'Big Industries - Imaging API. For use with our on-site customer imaging platform. '
 servers:
   - url: 'http://api.bigindustries.com/v1/'
     description: API
@@ -238,11 +238,80 @@ paths:
       tags:
         - Brands
     parameters: []
+  '/layout/gettool/{toolID}':
+    parameters:
+      - schema:
+          type: string
+        name: toolID
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-layout-gettool-toolID
+  /layout/gettool:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-laout-gettool
+      description: 'Returns all tools available to the user paginated '
+    parameters: []
+  /layout/savelayout:
+    post:
+      summary: ''
+      operationId: post-layout-savelayout
+      responses:
+        '200':
+          description: OK
+  /layout/getsaved:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-layout-getsaved
+  '/layout/getsaved/{layoutID}':
+    parameters:
+      - schema:
+          type: string
+        name: layoutID
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-layout-getsaved-layoutID
 components:
   schemas:
     User:
       title: User
       type: object
+      x-examples:
+        Basic User:
+          id: 102
+          fullName: Tom Petty
+          title: Purchasing
+          contactNumber: 800-867-5309
+          securityRole: 22
+          availableBrands:
+            - 101
+            - 102
+            - 103
+        BasicUser with preferences:
+          id: 102
+          fullName: Tom Petty
+          title: Purchasing
+          contactNumber: 800-867-5309
+          securityRole: 22
+          availableBrands:
+            - 101
+            - 102
+            - 103
+          preferences:
+            pageSize: 25
+            rememberMe: true
       properties:
         id:
           type: integer
@@ -254,16 +323,31 @@ components:
           type: string
         securityRole:
           type: integer
-      x-examples:
-        Basic User:
-          id: 102
-          fullName: Tom Petty
-          title: Purchasing
-          contactNumber: 800-867-5309
-          securityRole: 22
+        availableBrands:
+          type: array
+          items:
+            type: integer
+        preferences:
+          type: object
+          description: 'If the user has set any UI preferences that should persist between browsers they will save here. '
+          properties:
+            pageSize:
+              type: integer
+              description: 'When getting any list of items from the API, how big should the page size be (pagination)'
+            rememberMe:
+              type: boolean
+              description: If we should save the username in cookies (remember me checkbox)
+      required:
+        - id
+      description: 'User object used in multiple calls. Describes permissions, brand availability, and preferences for a user. '
     Brand:
       title: Brand
       type: object
+      x-examples:
+        Brand:
+          brandID: 100
+          brandName: SK
+          brandImage: /resources/brands/logo/small/sk.png
       properties:
         brandID:
           type: integer
@@ -271,11 +355,10 @@ components:
           type: string
         brandLogo:
           type: string
-      x-examples:
-        Brand:
-          brandID: 100
-          brandName: SK
-          brandImage: /resources/brands/logo/small/sk.png
+        active:
+          type: boolean
+          default: true
+          description: 'If a brand is added and is not active, parts associated with that brand will not be visible to all users'
   securitySchemes:
     Bearer Token:
       name: apiKey
