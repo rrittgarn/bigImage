@@ -9,7 +9,7 @@ info:
   termsOfService: api.bigindustries.com/tos.html
   description: 'Big Industries - Imaging API. For use with our on-site customer imaging platform. '
 servers:
-  - url: 'http://api.bigindustries.com/v1/'
+  - url: 'http://api.bigindustries.com/v1'
     description: API
 paths:
   login:

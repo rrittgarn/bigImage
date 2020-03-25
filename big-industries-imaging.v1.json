@@ -1,0 +1,606 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Big Industries Imaging",
+    "version": "1.0",
+    "contact": {
+      "name": "Ryan Rittgarn",
+      "url": "www.bigindustries.com/help",
+      "email": "ryan@bigindustries.com"
+    },
+    "termsOfService": "api.bigindustries.com/tos.html",
+    "description": "Big Industries - Imaging API. For use with our on-site customer imaging platform. "
+  },
+  "servers": [
+    {
+      "url": "http://api.bigindustries.com/v1/",
+      "description": "API"
+    }
+  ],
+  "paths": {
+    "login": {
+      "post": {
+        "summary": "Login",
+        "tags": [
+          "Authentication"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string"
+                    },
+                    "availableModules": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "userData": {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  }
+                },
+                "examples": {
+                  "User Login": {
+                    "value": {
+                      "token": "d514c63de975fc243b2eaf6ccf776dc4",
+                      "availableModules": [
+                        "imaging",
+                        "planning",
+                        "purchasing"
+                      ],
+                      "userData": {
+                        "id": 102,
+                        "fullName": "Tom Petty",
+                        "title": "Purchasing",
+                        "contactNumber": "800-867-5309",
+                        "securityRole": 22
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "errorID": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "examples": {
+                  "Bad Username or Password": {
+                    "value": {
+                      "error": "Bad Username or Password",
+                      "errorId": 1001
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "errorID": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "examples": {
+                  "Server Error": {
+                    "value": {
+                      "error": "Serverside Error has occurred. Please contact support with ID 1002",
+                      "errorID": 1002
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-v1-login",
+        "description": "Login process to get user token that will be used for all subsequent requests. ",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "/@/"
+            },
+            "in": "query",
+            "name": "email",
+            "description": "Fully Qualified Email Address",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "password",
+            "description": "Password",
+            "required": true
+          }
+        ]
+      },
+      "parameters": []
+    },
+    "toolimage": {
+      "post": {
+        "summary": "Add new captured tool",
+        "operationId": "post-v1-toolimage",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "description": "Should always match the http response code. "
+                    },
+                    "bigToolID": {
+                      "type": "integer",
+                      "description": "Big Industries internal id for this new tool "
+                    }
+                  }
+                },
+                "examples": {
+                  "New Tool Success": {
+                    "value": {
+                      "status": 200,
+                      "bigToolID": 202
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "errorID": {
+                      "type": "integer"
+                    },
+                    "errorDescription": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Store a tool image in the Big Industries tool API. System automatically creates a vector and stores relevant information with the objects. ",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "toolName": {
+                    "type": "string"
+                  },
+                  "brandID": {
+                    "type": "integer"
+                  },
+                  "toolDescription": {
+                    "type": "string"
+                  },
+                  "toolPartNumber": {
+                    "type": "string"
+                  },
+                  "toolHeight": {
+                    "type": "string"
+                  },
+                  "scanDate": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "capturedImage": {}
+                }
+              },
+              "examples": {
+                "ImageData": {
+                  "value": {
+                    "capturedImage": "filename.png"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Body should include as much information as possible. \n\nform-data is expecting an image file (png or jpg) from the capture table. "
+        },
+        "tags": [
+          "Tool Imaging"
+        ]
+      },
+      "parameters": []
+    },
+    "brands": {
+      "get": {
+        "summary": "Get All Brands",
+        "tags": [
+          "Brands"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "brands": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Brand"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Get all Brands": {
+                    "value": {
+                      "status": 200,
+                      "brands": [
+                        {
+                          "brandID": 100,
+                          "brandName": "SK",
+                          "brandImage": "/resources/brands/logo/small/sk.png"
+                        },
+                        {
+                          "brandID": 101,
+                          "brandName": "SnapOn",
+                          "brandImage": "/resources/brands/logo/small/snapon.png"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-v1-brands",
+        "description": "Get the available tool brands from the database to associate a tool. ",
+        "security": [
+          {
+            "Bearer Token": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "Create new brand",
+        "operationId": "post-v1-brands",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "brandID": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "Create Result": {
+                    "value": {
+                      "status": 200,
+                      "brandID": 103
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Create a new Brand. Admin User Level required. \n",
+        "security": [
+          {
+            "Bearer Token": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "brandName": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "New Brand": {
+                  "value": {
+                    "brandName": "Ideal Tools"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Brands"
+        ]
+      },
+      "parameters": []
+    },
+    "/layout/gettool/{toolID}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "toolID",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get individual tool by ID",
+        "tags": [
+          "Layout"
+        ],
+        "responses": {},
+        "operationId": "get-layout-gettool-toolID",
+        "description": "Will return the tool SVG-ID, as well as the details regarding the tool. ",
+        "security": [
+          {
+            "Bearer Token": []
+          }
+        ]
+      }
+    },
+    "/layout/gettool": {
+      "get": {
+        "summary": "Get all tools available",
+        "tags": [
+          "Layout"
+        ],
+        "responses": {},
+        "operationId": "get-laout-gettool",
+        "description": "Returns all tools available to the user paginated by preference",
+        "security": [
+          {
+            "Bearer Token": []
+          }
+        ]
+      },
+      "parameters": []
+    },
+    "/layout/savelayout": {
+      "post": {
+        "summary": "Save Layout",
+        "operationId": "post-layout-savelayout",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Layout"
+        ],
+        "description": "Saves all of the current IDs and their positions / rotation on the layout. ",
+        "security": [
+          {
+            "Bearer Token": []
+          }
+        ]
+      }
+    },
+    "/layout/getsaved": {
+      "get": {
+        "summary": "Get saved layouts",
+        "tags": [
+          "Layout"
+        ],
+        "responses": {},
+        "operationId": "get-layout-getsaved",
+        "security": [
+          {
+            "Bearer Token": []
+          }
+        ],
+        "description": "Returns a list of saved layouts and their last modified dates. "
+      }
+    },
+    "/layout/getsaved/{layoutID}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "layoutID",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get saved layout by ID",
+        "tags": [
+          "Layout"
+        ],
+        "responses": {},
+        "operationId": "get-layout-getsaved-layoutID",
+        "security": [
+          {
+            "Bearer Token": []
+          }
+        ],
+        "description": "Returns the full layout with positional data. "
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "title": "User",
+        "type": "object",
+        "x-examples": {
+          "Basic User": {
+            "id": 102,
+            "fullName": "Tom Petty",
+            "title": "Purchasing",
+            "contactNumber": "800-867-5309",
+            "securityRole": 22,
+            "availableBrands": [
+              101,
+              102,
+              103
+            ]
+          },
+          "BasicUser with preferences": {
+            "id": 102,
+            "fullName": "Tom Petty",
+            "title": "Purchasing",
+            "contactNumber": "800-867-5309",
+            "securityRole": 22,
+            "availableBrands": [
+              101,
+              102,
+              103
+            ],
+            "preferences": {
+              "pageSize": 25,
+              "rememberMe": true
+            }
+          }
+        },
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "contactNumber": {
+            "type": "string"
+          },
+          "securityRole": {
+            "type": "integer"
+          },
+          "availableBrands": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "preferences": {
+            "type": "object",
+            "description": "If the user has set any UI preferences that should persist between browsers they will save here. ",
+            "properties": {
+              "pageSize": {
+                "type": "integer",
+                "description": "When getting any list of items from the API, how big should the page size be (pagination)"
+              },
+              "rememberMe": {
+                "type": "boolean",
+                "description": "If we should save the username in cookies (remember me checkbox)"
+              }
+            }
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "description": "User object used in multiple calls. Describes permissions, brand availability, and preferences for a user. ",
+        "x-tags": [
+          "Models"
+        ]
+      },
+      "Brand": {
+        "title": "Brand",
+        "type": "object",
+        "x-examples": {
+          "Brand": {
+            "brandID": 100,
+            "brandName": "SK",
+            "brandImage": "/resources/brands/logo/small/sk.png"
+          }
+        },
+        "properties": {
+          "brandID": {
+            "type": "integer"
+          },
+          "brandName": {
+            "type": "string"
+          },
+          "brandLogo": {
+            "type": "string"
+          },
+          "active": {
+            "type": "boolean",
+            "default": true,
+            "description": "If a brand is added and is not active, parts associated with that brand will not be visible to all users"
+          }
+        },
+        "x-tags": [
+          "Models"
+        ]
+      }
+    },
+    "securitySchemes": {
+      "Bearer Token": {
+        "name": "apiKey",
+        "type": "apiKey",
+        "in": "header",
+        "description": "Your unique authentication token provided by the login method"
+      }
+    }
+  }
+}
