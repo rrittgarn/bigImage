@@ -97,6 +97,82 @@ paths:
           name: password
           description: Password
           required: true
+  /v1/toolimage:
+    post:
+      summary: ''
+      operationId: post-v1-toolimage
+      responses:
+        '200':
+          description: OK
+      description: 'Store a tool image in the Big Industries tool API. System automatically creates a vector and stores relevant information with the objects. '
+  /v1/brands:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                  brands:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Brand'
+              examples:
+                Get all Brands:
+                  value:
+                    status: 200
+                    brands:
+                      - brandID: 100
+                        brandName: SK
+                        brandImage: /resources/brands/logo/small/sk.png
+                      - brandID: 101
+                        brandName: SnapOn
+                        brandImage: /resources/brands/logo/small/snapon.png
+      operationId: get-v1-brands
+      description: 'Get the available tool brands from the database to associate a tool. '
+      security:
+        - Bearer Token: []
+    post:
+      summary: ''
+      operationId: post-v1-brands
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                  brandID:
+                    type: string
+              examples:
+                Create Result:
+                  value:
+                    status: 200
+                    brandID: 103
+      description: "Create a new Brand. Admin User Level required. \n"
+      security:
+        - Bearer Token: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                brandName:
+                  type: string
+            examples:
+              New Brand:
+                value:
+                  brandName: Ideal Tools
 components:
   schemas:
     User:
@@ -120,6 +196,21 @@ components:
           title: Purchasing
           contactNumber: 800-867-5309
           securityRole: 22
+    Brand:
+      title: Brand
+      type: object
+      properties:
+        brandID:
+          type: integer
+        brandName:
+          type: string
+        brandLogo:
+          type: string
+      x-examples:
+        Brand:
+          brandID: 100
+          brandName: SK
+          brandImage: /resources/brands/logo/small/sk.png
   securitySchemes:
     Bearer Token:
       name: API Key
