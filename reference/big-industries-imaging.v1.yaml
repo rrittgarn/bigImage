@@ -1,0 +1,128 @@
+openapi: 3.0.0
+info:
+  title: Big Industries Imaging
+  version: '1.0'
+  contact:
+    name: Ryan Rittgarn
+    url: www.bigindustries.com/help
+    email: ryan@bigindustries.com
+  termsOfService: api.bigindustries.com/tos.html
+  description: 'Big Industries Imaging API. For use with our on-site customer imaging platform. '
+servers:
+  - url: 'http://api.bigindustries.com'
+    description: API
+paths:
+  /v1/login:
+    post:
+      summary: Login
+      tags:
+        - Authentication
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                  availableModules:
+                    type: array
+                    items:
+                      type: string
+                  userData:
+                    $ref: '#/components/schemas/User'
+              examples:
+                User Login:
+                  value:
+                    token: d514c63de975fc243b2eaf6ccf776dc4
+                    availableModules:
+                      - imaging
+                      - planning
+                      - purchasing
+                    userData:
+                      id: 102
+                      fullName: Tom Petty
+                      title: Purchasing
+                      contactNumber: 800-867-5309
+                      securityRole: 22
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  errorID:
+                    type: integer
+              examples:
+                Bad Username or Password:
+                  value:
+                    error: Bad Username or Password
+                    errorId: 1001
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  errorID:
+                    type: integer
+              examples:
+                Server Error:
+                  value:
+                    error: Serverside Error has occurred. Please contact support with ID 1002
+                    errorID: 1002
+      operationId: post-v1-login
+      description: 'Login process to get user token that will be used for all subsequent requests. '
+      parameters:
+        - schema:
+            type: string
+            pattern: /@/
+          in: query
+          name: email
+          description: Fully Qualified Email Address
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: password
+          description: Password
+          required: true
+components:
+  schemas:
+    User:
+      title: User
+      type: object
+      properties:
+        id:
+          type: integer
+        fullName:
+          type: string
+        title:
+          type: string
+        contactNumber:
+          type: string
+        securityRole:
+          type: integer
+      x-examples:
+        Basic User:
+          id: 102
+          fullName: Tom Petty
+          title: Purchasing
+          contactNumber: 800-867-5309
+          securityRole: 22
+  securitySchemes:
+    Bearer Token:
+      name: API Key
+      type: apiKey
+      in: header
+      description: Your unique authentication token provided by the login method
