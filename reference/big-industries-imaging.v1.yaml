@@ -9,10 +9,10 @@ info:
   termsOfService: api.bigindustries.com/tos.html
   description: 'Big Industries Imaging API. For use with our on-site customer imaging platform. '
 servers:
-  - url: 'http://api.bigindustries.com'
+  - url: 'http://api.bigindustries.com/v1/'
     description: API
 paths:
-  /v1/login:
+  login:
     post:
       summary: Login
       tags:
@@ -97,7 +97,8 @@ paths:
           name: password
           description: Password
           required: true
-  /v1/toolimage:
+    parameters: []
+  toolimage:
     post:
       summary: Add new captured tool
       operationId: post-v1-toolimage
@@ -164,7 +165,8 @@ paths:
         description: "Body should include as much information as possible. \n\nform-data is expecting an image file (png or jpg) from the capture table. "
       tags:
         - Tool Imaging
-  /v1/brands:
+    parameters: []
+  brands:
     get:
       summary: Get All Brands
       tags:
@@ -235,6 +237,7 @@ paths:
                   brandName: Ideal Tools
       tags:
         - Brands
+    parameters: []
 components:
   schemas:
     User:
@@ -275,7 +278,7 @@ components:
           brandImage: /resources/brands/logo/small/sk.png
   securitySchemes:
     Bearer Token:
-      name: API Key
+      name: apiKey
       type: apiKey
       in: header
       description: Your unique authentication token provided by the login method
