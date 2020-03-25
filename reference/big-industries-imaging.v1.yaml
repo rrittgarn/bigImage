@@ -346,6 +346,8 @@ components:
       required:
         - id
       description: 'User object used in multiple calls. Describes permissions, brand availability, and preferences for a user. '
+      x-tags:
+        - Models
     Brand:
       title: Brand
       type: object
@@ -365,6 +367,8 @@ components:
           type: boolean
           default: true
           description: 'If a brand is added and is not active, parts associated with that brand will not be visible to all users'
+      x-tags:
+        - Models
   securitySchemes:
     Bearer Token:
       name: apiKey
