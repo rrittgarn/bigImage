@@ -99,7 +99,7 @@ paths:
           required: true
   /v1/toolimage:
     post:
-      summary: ''
+      summary: Add new captured tool
       operationId: post-v1-toolimage
       responses:
         '200':
@@ -166,7 +166,7 @@ paths:
         - Tool Imaging
   /v1/brands:
     get:
-      summary: Your GET endpoint
+      summary: Get All Brands
       tags:
         - Brands
       responses:
@@ -199,7 +199,7 @@ paths:
       security:
         - Bearer Token: []
     post:
-      summary: ''
+      summary: Create new brand
       operationId: post-v1-brands
       responses:
         '200':
