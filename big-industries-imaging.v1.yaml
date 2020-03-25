@@ -12,7 +12,7 @@ servers:
   - url: 'http://api.bigindustries.com/v1'
     description: API
 paths:
-  login:
+  /login:
     post:
       summary: Login
       tags:
@@ -98,7 +98,7 @@ paths:
           description: Password
           required: true
     parameters: []
-  toolimage:
+  /toolimage:
     post:
       summary: Add new captured tool
       operationId: post-v1-toolimage
@@ -166,7 +166,7 @@ paths:
       tags:
         - Tool Imaging
     parameters: []
-  brands:
+  /brands:
     get:
       summary: Get All Brands
       tags:
