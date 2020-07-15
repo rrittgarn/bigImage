@@ -47,6 +47,7 @@ paths:
                       title: Purchasing
                       contactNumber: 800-867-5309
                       securityRole: 22
+                example-2: {}
         '401':
           description: Unauthorized
           content:
@@ -249,7 +250,17 @@ paths:
       summary: Get individual tool by ID
       tags:
         - Layout
-      responses: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
       operationId: get-layout-gettool-toolID
       description: 'Will return the tool SVG-ID, as well as the details regarding the tool. '
       security:
@@ -383,6 +394,38 @@ components:
           description: 'If a brand is added and is not active, parts associated with that brand will not be visible to all users'
       x-tags:
         - Models
+    Tool:
+      title: Tool
+      type: object
+      properties:
+        id:
+          type: integer
+        toolName:
+          type: string
+        toolDescription:
+          type: string
+        toolBrandId:
+          type: integer
+        toolDepth:
+          type: number
+        mfrPN:
+          type: string
+    Set:
+      title: Set
+      type: object
+      properties:
+        setId:
+          type: integer
+        toolId:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tool'
+        setName:
+          type: string
+        mfrPN:
+          type: string
+        brandID:
+          type: integer
   securitySchemes:
     Bearer Token:
       name: apiKey
