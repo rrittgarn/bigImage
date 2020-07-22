@@ -433,6 +433,8 @@ components:
         - id
         - toolName
         - toolBrandId
+      x-tags:
+        - Models
     Set:
       title: Set
       type: object
@@ -449,6 +451,8 @@ components:
           type: string
         brandID:
           type: integer
+      x-tags:
+        - Models
   securitySchemes:
     Bearer Token:
       name: apiKey
