@@ -47,7 +47,6 @@ paths:
                       title: Purchasing
                       contactNumber: 800-867-5309
                       securityRole: 22
-                example-2: {}
         '401':
           description: Unauthorized
           content:
@@ -163,7 +162,10 @@ paths:
               ImageData:
                 value:
                   capturedImage: filename.png
-        description: "Body should include as much information as possible. \n\nform-data is expecting an image file (png or jpg) from the capture table. "
+        description: |-
+          Body should include as much information as possible. 
+
+          form-data is expecting an image file (png or jpg) from the capture table. 
       tags:
         - Tool Imaging
     parameters: []
@@ -221,7 +223,8 @@ paths:
                   value:
                     status: 200
                     brandID: 103
-      description: "Create a new Brand. Admin User Level required. \n"
+      description: |
+        Create a new Brand. Admin User Level required. 
       security:
         - Bearer Token: []
       requestBody:
