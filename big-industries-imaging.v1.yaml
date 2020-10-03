@@ -172,7 +172,7 @@ paths:
         description: |-
           Body should include as much information as possible. 
 
-          form-data is expecting an image file (png or jpg) from the capture table. 
+          form-data is expecting an image file (svg) and the accompanying json file. This matches current scanner output. 
       tags:
         - Tool Imaging
     parameters: []
