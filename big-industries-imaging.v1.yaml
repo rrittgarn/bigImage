@@ -219,7 +219,9 @@ paths:
       summary: Get all tools available
       tags:
         - Layout
-      responses: {}
+      responses:
+        '200':
+          description: OK
       operationId: get-laout-gettool
       description: Returns all tools available to the user paginated by preference
       security:
@@ -242,7 +244,9 @@ paths:
       summary: Get saved layouts
       tags:
         - Layout
-      responses: {}
+      responses:
+        '200':
+          description: OK
       operationId: get-layout-getsaved
       security:
         - Bearer Token: []
@@ -258,7 +262,9 @@ paths:
       summary: Get saved layout by ID
       tags:
         - Layout
-      responses: {}
+      responses:
+        '200':
+          description: OK
       operationId: get-layout-getsaved-layoutID
       security:
         - Bearer Token: []
@@ -341,13 +347,17 @@ paths:
                 type: string
       parameters: []
       description: 'CORS Options response, will respond on any sub-endpoint below /v1/ '
+      tags:
+        - Authentication
     parameters: []
   /toolimage/all:
     get:
       summary: Get all available tool images
       tags:
         - Tool Imaging
-      responses: {}
+      responses:
+        '200':
+          description: OK
       operationId: get-toolimage-all
       description: 'Returns all tools visible to user '
   /drawer:
@@ -446,7 +456,7 @@ paths:
       responses:
         '200':
           description: OK
-      description: ''
+      description: Create a new job associated with the currently logged in user
       tags:
         - Job Management
   /job/all:
@@ -470,7 +480,9 @@ paths:
       summary: Get Active Jobs
       tags:
         - Job Management
-      responses: {}
+      responses:
+        '200':
+          description: OK
       operationId: get-job-active
       description: 'Get all the active jobs for the currently logged in user. '
       requestBody:
@@ -579,7 +591,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Tool'
       operationId: get-toolimage-toolUPC
-      description: ''
+      description: get tool by UPC (this endpoint is not currently documented correctly
   '/drawer/layout/{drawerId}':
     parameters:
       - schema:
@@ -765,25 +777,6 @@ components:
         - _id
         - Brand
         - UPC
-    Set:
-      title: Set
-      type: object
-      properties:
-        setId:
-          type: integer
-        toolId:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tool'
-        setName:
-          type: string
-        mfrPN:
-          type: string
-        brandID:
-          type: integer
-      x-tags:
-        - Models
-      description: Depricated - being removed
     Job:
       title: Job
       type: object
@@ -1021,3 +1014,4 @@ tags:
   - name: Drawer Management
   - name: Job Management
   - name: Authentication
+  - name: Layout
