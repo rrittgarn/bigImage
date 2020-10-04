@@ -391,7 +391,7 @@ paths:
       parameters: []
   CORS:
     options:
-      summary: ''
+      summary: HTML Options (CORS)
       operationId: optionsv1
       responses:
         '204':
