@@ -564,7 +564,13 @@ paths:
       summary: Get most recent saved layout
       tags:
         - Drawer Management
-      responses: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Layout'
       operationId: get-drawer-layout-drawerId
       description: ''
     post:
@@ -575,6 +581,16 @@ paths:
           description: OK
       tags:
         - Drawer Management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                layoutData:
+                  $ref: '#/components/schemas/Layout'
 components:
   schemas:
     User:
