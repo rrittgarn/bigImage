@@ -518,6 +518,19 @@ paths:
           description: OK
       tags:
         - Job Management
+  '/job/{JobID}':
+    parameters:
+      - schema:
+          type: string
+        name: JobID
+        in: path
+        required: true
+    get:
+      summary: Get Job Details for job by ID
+      tags:
+        - Job Management
+      responses: {}
+      operationId: get-job-JobID
 components:
   schemas:
     User:
