@@ -160,6 +160,18 @@ paths:
                   type: string
                 CutSVG:
                   type: string
+            examples:
+              example-1:
+                value:
+                  Brand: string
+                  UPC: string
+                  isSet: true
+                  Description: string
+                  Category: string
+                  Unit: string
+                  toolThickness: string
+                  DisplaySVG: string
+                  CutSVG: string
           multipart/form-data:
             schema:
               type: object
@@ -376,6 +388,39 @@ paths:
       operationId: get-toolimage-toolID
       description: Expects the UID of the tool in question (_id field value). Provides single tool details
       parameters: []
+  CORS:
+    options:
+      summary: ''
+      operationId: optionsv1
+      responses:
+        '204':
+          description: CORS response will allow our internal domains
+          headers:
+            'Access-Control-Allow-Origin: *.cfpsecure.com':
+              schema:
+                type: string
+            'Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS':
+              schema:
+                type: string
+            'Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token':
+              schema:
+                type: string
+            'Cache-Control: max-age=86400':
+              schema:
+                type: string
+            'Access-Control-Max-Age: 86400':
+              schema:
+                type: string
+      parameters: []
+      description: 'CORS Options response, will respond on any sub-endpoint below /v1/ '
+    parameters: []
+  /toolimage/all:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-toolimage-all
+      description: 'Returns all tools visible to user '
 components:
   schemas:
     User:
@@ -405,6 +450,9 @@ components:
           preferences:
             pageSize: 25
             rememberMe: true
+      description: 'User object used in multiple calls. Describes permissions, brand availability, and preferences for a user. '
+      x-tags:
+        - Models
       properties:
         id:
           type: integer
@@ -419,7 +467,7 @@ components:
         availableBrands:
           type: array
           items:
-            type: integer
+            $ref: '#/components/schemas/Brand'
         preferences:
           type: object
           description: 'If the user has set any UI preferences that should persist between browsers they will save here. '
@@ -432,9 +480,6 @@ components:
               description: If we should save the username in cookies (remember me checkbox)
       required:
         - id
-      description: 'User object used in multiple calls. Describes permissions, brand availability, and preferences for a user. '
-      x-tags:
-        - Models
     Brand:
       title: Brand
       type: object
@@ -470,8 +515,8 @@ components:
           Category: Screwdrivers & Nut Drivers
           Unit: NA
           toolThickness: '1.125'
-          DisplaySVG: "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"3.78881in\" height=\"1.16011in\" viewBox=\"0 0 272.7943 83.52779\">\r\n </svg>\r\n"
-          CutSVG: "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"3.78881in\" height=\"1.16011in\" viewBox=\"0 0 272.7943 83.52779\">\r\n </svg>\r\n"
+          DisplaySVG: "<svg xmlns=\"http://www.w3.org/2000/svg\">\r\n </svg>\r\n"
+          CutSVG: "<svg xmlns=\"http://www.w3.org/2000/svg\">\r\n </svg>\r\n"
           importDate: '1601766752'
       x-tags:
         - Models
@@ -499,6 +544,10 @@ components:
           type: string
         importDate:
           type: integer
+        SecurityAssociations:
+          type: array
+          items:
+            type: string
       required:
         - _id
         - Brand
