@@ -433,6 +433,11 @@ paths:
       description: Create a new Drawer
       tags:
         - Drawer Management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Drawer'
   /drawer/all:
     get:
       summary: Get all available drawers
