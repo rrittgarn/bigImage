@@ -344,8 +344,9 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
-      tags: []
+      summary: Get specific tool by ID
+      tags:
+        - Tool Imaging
       responses:
         '200':
           description: OK
@@ -416,8 +417,9 @@ paths:
     parameters: []
   /toolimage/all:
     get:
-      summary: Your GET endpoint
-      tags: []
+      summary: Get all available tool images
+      tags:
+        - Tool Imaging
       responses: {}
       operationId: get-toolimage-all
       description: 'Returns all tools visible to user '
@@ -576,3 +578,5 @@ components:
       type: apiKey
       in: header
       description: Your unique authentication token provided by the login method
+tags:
+  - name: Tool Imaging
