@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: Big Industries Imaging - Api Powered by Stoplight
+  title: Big Industries Imaging
   version: '1.0'
   contact:
     name: Ryan Rittgarn
