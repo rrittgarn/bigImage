@@ -165,15 +165,15 @@ paths:
             examples:
               example-1:
                 value:
-                  Brand: string
-                  UPC: string
-                  isSet: true
-                  Description: string
-                  Category: string
-                  Unit: string
-                  toolThickness: string
-                  DisplaySVG: string
-                  CutSVG: string
+                  Brand: BrandName
+                  UPC: J00000001
+                  isSet: false
+                  Description: Tool description goes here
+                  Category: Undefined
+                  Unit: NA
+                  toolThickness: '1.25'
+                  DisplaySVG: <svg></svg>
+                  CutSVG: <svg></svg>
           multipart/form-data:
             schema:
               type: object
