@@ -700,6 +700,8 @@ components:
           type: array
           items:
             type: string
+      x-tags:
+        - Models
     Drawer:
       title: Drawer
       type: object
@@ -736,6 +738,8 @@ components:
           type: array
           items:
             type: string
+      x-tags:
+        - Models
   securitySchemes:
     Bearer Token:
       name: apiKey
