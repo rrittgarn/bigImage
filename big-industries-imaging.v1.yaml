@@ -188,79 +188,6 @@ paths:
       tags:
         - Tool Imaging
     parameters: []
-  /brands:
-    get:
-      summary: Get All Brands
-      tags:
-        - Brands
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: integer
-                  brands:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Brand'
-              examples:
-                Get all Brands:
-                  value:
-                    status: 200
-                    brands:
-                      - brandID: 100
-                        brandName: SK
-                        brandImage: /resources/brands/logo/small/sk.png
-                      - brandID: 101
-                        brandName: SnapOn
-                        brandImage: /resources/brands/logo/small/snapon.png
-      operationId: get-v1-brands
-      description: 'Get the available tool brands from the database to associate a tool. '
-      security:
-        - Bearer Token: []
-    post:
-      summary: Create new brand
-      operationId: post-v1-brands
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: integer
-                  brandID:
-                    type: string
-              examples:
-                Create Result:
-                  value:
-                    status: 200
-                    brandID: 103
-      description: |
-        Create a new Brand. Admin User Level required. 
-      security:
-        - Bearer Token: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                brandName:
-                  type: string
-            examples:
-              New Brand:
-                value:
-                  brandName: Ideal Tools
-      tags:
-        - Brands
-    parameters: []
   '/layout/gettool/{toolID}':
     parameters:
       - schema:
@@ -430,7 +357,21 @@ paths:
       responses:
         '200':
           description: OK
-      description: Create a new Drawer
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  description:
+                    type: string
+                  newDrawerID:
+                    type: string
+              examples:
+                Single Drawer:
+                  value:
+                    description: Drawer created successfully
+                    newDrawerID: hmDvY3SjhBXuaa7PIBjHcqzj
+      description: 'Create a new Drawer associated with the logged in user. '
       tags:
         - Drawer Management
       requestBody:
@@ -453,7 +394,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Drawer'
       operationId: get-drawer-all
-      description: ''
+      description: Get all drawers available to user (irrespective of job)
   '/drawer/{jobID}':
     parameters:
       - schema:
@@ -475,6 +416,20 @@ paths:
                 items:
                   $ref: '#/components/schemas/Drawer'
       operationId: get-drawer-jobID
+      description: Get a specific drawer by specified JobID
+    delete:
+      summary: ''
+      operationId: delete-drawer-jobID
+      responses:
+        '200':
+          description: OK
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      description: 'Delete an existing job. Note: Delete will only render the job invisible to the user. Administrators will still have visibility into deleted jobs. '
+      tags:
+        - Job Management
   /job:
     post:
       summary: Create a Job
@@ -482,7 +437,7 @@ paths:
       responses:
         '200':
           description: OK
-      description: ''
+      description: Create a new Job
       tags:
         - Job Management
     delete:
@@ -499,9 +454,17 @@ paths:
       summary: Get all Jobs
       tags:
         - Job Management
-      responses: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Job'
       operationId: get-job-all
-      description: ''
+      description: 'Get all jobs (active and inactive) for the logged in user. '
   /job/active:
     get:
       summary: Get Active Jobs
@@ -509,7 +472,14 @@ paths:
         - Job Management
       responses: {}
       operationId: get-job-active
-      description: ''
+      description: 'Get all the active jobs for the currently logged in user. '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Job'
     post:
       summary: Mark Job as Active
       operationId: post-job-active
@@ -529,8 +499,28 @@ paths:
       summary: Get all inactive jobs
       tags:
         - Job Management
-      responses: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Job'
+              examples:
+                Inactive Job list:
+                  value:
+                    - _id: string
+                      Name: string
+                      State: 0
+                      creationDate: 0
+                      lastUpdated: 0
+                      securityAssociations:
+                        - string
       operationId: get-job-inactive
+      parameters: []
+      description: Get all inactive Jobs
     post:
       summary: Mark job as inactive
       operationId: post-job-inactive
@@ -539,6 +529,15 @@ paths:
           description: OK
       tags:
         - Job Management
+      description: 'Mark a job as inactive '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                jobID:
+                  type: string
   '/job/{JobID}':
     parameters:
       - schema:
@@ -550,8 +549,15 @@ paths:
       summary: Get Job Details for job by ID
       tags:
         - Job Management
-      responses: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
       operationId: get-job-JobID
+      description: Get the job details for the supplied ID
   '/toolimage/{toolUPC}':
     parameters:
       - schema:
@@ -593,7 +599,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Layout'
       operationId: get-drawer-layout-drawerId
-      description: ''
+      description: 'Loads the most recent saved layout from the database without SVG data (referencing tool _id) for a specific drawer id. '
     post:
       summary: Save Drawer Layout
       operationId: post-drawer-layout-drawerId
@@ -612,6 +618,7 @@ paths:
                   type: string
                 layoutData:
                   $ref: '#/components/schemas/Layout'
+      description: 'Save the drawer layout data to the provided drawerID. '
 components:
   schemas:
     User:
