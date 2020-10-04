@@ -438,7 +438,15 @@ paths:
       summary: Get all available drawers
       tags:
         - Drawer Management
-      responses: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Drawer'
       operationId: get-drawer-all
       description: ''
   '/drawer/{jobID}':
@@ -452,7 +460,15 @@ paths:
       summary: Get all drawers in the supplied Job
       tags:
         - Drawer Management
-      responses: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Drawer'
       operationId: get-drawer-jobID
   /job:
     post:
