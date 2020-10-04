@@ -425,16 +425,12 @@ paths:
       description: 'Returns all tools visible to user '
   /drawer:
     post:
-      summary: ''
+      summary: Create a new drawer
       operationId: post-drawer
       responses:
         '200':
           description: OK
       description: Create a new Drawer
-      tags:
-        - Drawer Management
-    get:
-      summary: Create new drawer
       tags:
         - Drawer Management
   /drawer/all:
