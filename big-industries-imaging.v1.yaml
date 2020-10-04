@@ -553,6 +553,25 @@ paths:
                   $ref: '#/components/schemas/Tool'
       operationId: get-toolimage-toolUPC
       description: ''
+  '/drawer/layout/{drawerId}':
+    parameters:
+      - schema:
+          type: string
+        name: drawerId
+        in: path
+        required: true
+    get:
+      summary: Get most recent saved layout
+      tags: []
+      responses: {}
+      operationId: get-drawer-layout-drawerId
+      description: ''
+    post:
+      summary: Save Drawer Layout
+      operationId: post-drawer-layout-drawerId
+      responses:
+        '200':
+          description: OK
 components:
   schemas:
     User:
@@ -633,6 +652,7 @@ components:
           description: 'If a brand is added and is not active, parts associated with that brand will not be visible to all users'
       x-tags:
         - Models
+      description: Depricated - Being removed
     Tool:
       title: Tool
       type: object
@@ -703,6 +723,7 @@ components:
           type: integer
       x-tags:
         - Models
+      description: Depricated - being removed
     Job:
       title: Job
       type: object
@@ -727,6 +748,29 @@ components:
     Drawer:
       title: Drawer
       type: object
+      x-tags:
+        - Models
+      x-examples:
+        example-1:
+          _id: string
+          density: 0
+          drawerNotes: string
+          foamColor: string
+          foamThickness: string
+          height: string
+          name: string
+          padColor: string
+          padThickness: string
+          parentJobID: string
+          plasticTray: string
+          plasticTrayColor: string
+          plasticTrayThickness: string
+          width: string
+          securityAssociations:
+            - string
+          revisions:
+            - '0': linked_saved_id
+              '1': more_recent_saved_id
       properties:
         _id:
           type: string
@@ -760,8 +804,13 @@ components:
           type: array
           items:
             type: string
-      x-tags:
-        - Models
+        revisions:
+          type: array
+          items:
+            type: object
+            properties:
+              revName:
+                type: string
   securitySchemes:
     Bearer Token:
       name: apiKey
