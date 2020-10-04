@@ -619,6 +619,16 @@ paths:
                 layoutData:
                   $ref: '#/components/schemas/Layout'
       description: 'Save the drawer layout data to the provided drawerID. '
+  /logout:
+    get:
+      summary: Logout
+      tags:
+        - Authentication
+      responses:
+        '200':
+          description: OK
+      operationId: get-logout
+      description: 'Logs user out, destroys current session and API token. '
 components:
   schemas:
     User:
@@ -1007,3 +1017,4 @@ tags:
   - name: Tool Imaging
   - name: Drawer Management
   - name: Job Management
+  - name: Authentication
