@@ -811,6 +811,98 @@ components:
             properties:
               revName:
                 type: string
+    Layout:
+      title: Layout
+      description: 'A layout is what we refer to as the contents of the drawer. Within each layout we will have the tools in the positions the customer has placed them. We will also have the ability to make the layout no longer editable by turning it into a revision. Revisions will be available in the Revisions collection / Model '
+      type: object
+      x-examples:
+        Example Layout - two tools:
+          toolData:
+            - toolID: 5f72536c574def1e594fb992
+              uniqueIdString: 6mhr8k4i8-5f72536c574def1e594fb992-0
+              toolHeightPx: 46.4
+              konvToolHeightPx: 46.4
+              toolOriginalHeightIn: 1.1601099967956543
+              toolWidthPx: 151.56
+              konvToolWidthPx: 151.56
+              toolOriginalWidthIn: 3.7888100147247314
+              toolTransformer: '{"attrs":{"centeredScaling":true,"rotationSnaps":[0,45,90,135,180,225,270,315],"resizeEnabled":false,"anchorStroke":"#00a9f4","anchorFill":"#00a9f4","anchorSize":6,"borderStroke":"#00a9f4","rotateAnchorOffset":16,"anchorCornerRadius":1},"className":"Transformer"}'
+              isUserTool: true
+              toolScale: 1
+              konvToolXPosPercent: 60.625
+              konvToolXPosPx: 485
+              konvToolYPosPercent: 59.4
+              konvToolYPosPx: 297
+              konvToolRPosDegree: 1
+              konvToolScaleX: 1
+              konvToolScaleY: 1
+              isImgPathData: false
+            - toolID: 5f73f26ef9ed54382304aa02
+              uniqueIdString: 6mhr8k4i8-5f73f26ef9ed54382304aa02-0
+              toolHeightPx: 136.4
+              konvToolHeightPx: 136.4
+              toolOriginalHeightIn: 3.4100000858306885
+              toolWidthPx: 505.24
+              konvToolWidthPx: 505.24
+              toolOriginalWidthIn: 12.631290435791016
+              toolTransformer: '{"attrs":{"centeredScaling":true,"rotationSnaps":[0,45,90,135,180,225,270,315],"resizeEnabled":false,"anchorStroke":"#00a9f4","anchorFill":"#00a9f4","anchorSize":6,"borderStroke":"#00a9f4","rotateAnchorOffset":16,"anchorCornerRadius":1},"className":"Transformer"}'
+              isUserTool: true
+              toolScale: 1
+              konvToolXPosPercent: 59.625
+              konvToolXPosPx: 477
+              konvToolYPosPercent: 81.4
+              konvToolYPosPx: 407
+              konvToolRPosDegree: 0
+              konvToolScaleX: 1
+              konvToolScaleY: 1
+              isImgPathData: false
+          svgStringFullOuter: string
+      properties:
+        toolData:
+          type: array
+          items:
+            type: object
+            properties:
+              toolID:
+                type: string
+              uniqueIdString:
+                type: string
+              toolHeightPx:
+                type: number
+              konvToolHeightPx:
+                type: number
+              toolOriginalHeightIn:
+                type: number
+              toolWidthPx:
+                type: number
+              konvToolWidthPx:
+                type: number
+              toolOriginalWidthIn:
+                type: number
+              toolTransformer:
+                type: string
+              isUserTool:
+                type: boolean
+              toolScale:
+                type: number
+              konvToolXPosPercent:
+                type: number
+              konvToolXPosPx:
+                type: number
+              konvToolYPosPercent:
+                type: number
+              konvToolYPosPx:
+                type: number
+              konvToolRPosDegree:
+                type: number
+              konvToolScaleX:
+                type: number
+              konvToolScaleY:
+                type: number
+              isImgPathData:
+                type: boolean
+        svgStringFullOuter:
+          type: string
   securitySchemes:
     Bearer Token:
       name: apiKey
