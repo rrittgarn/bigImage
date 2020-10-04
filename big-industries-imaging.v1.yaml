@@ -700,6 +700,42 @@ components:
           type: array
           items:
             type: string
+    Drawer:
+      title: Drawer
+      type: object
+      properties:
+        _id:
+          type: string
+        density:
+          type: integer
+        drawerNotes:
+          type: string
+        foamColor:
+          type: string
+        foamThickness:
+          type: string
+        height:
+          type: string
+        name:
+          type: string
+        padColor:
+          type: string
+        padThickness:
+          type: string
+        parentJobID:
+          type: string
+        plasticTray:
+          type: string
+        plasticTrayColor:
+          type: string
+        plasticTrayThickness:
+          type: string
+        width:
+          type: string
+        securityAssociations:
+          type: array
+          items:
+            type: string
   securitySchemes:
     Bearer Token:
       name: apiKey
