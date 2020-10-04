@@ -641,6 +641,41 @@ paths:
           description: OK
       operationId: get-logout
       description: 'Logs user out, destroys current session and API token. '
+  /drawer/revision:
+    post:
+      summary: Create a Drawer Revision
+      operationId: post-drawer-revision
+      responses:
+        '200':
+          description: OK
+      description: 'Post a revision formatted layout to create it as the current highest numbered revision for the drawer. '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Revision'
+      tags:
+        - Drawer Management
+  '/drawer/revision/{revisionID}':
+    parameters:
+      - schema:
+          type: string
+        name: revisionID
+        in: path
+        required: true
+    get:
+      summary: View a Drawer Revision
+      tags:
+        - Drawer Management
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Revision'
+      operationId: get-drawer-revision-revisionID
+      description: 'View the specified Drawer Revision. This is not editable. '
 components:
   schemas:
     User:
