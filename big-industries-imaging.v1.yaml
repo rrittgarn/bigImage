@@ -423,6 +423,105 @@ paths:
       responses: {}
       operationId: get-toolimage-all
       description: 'Returns all tools visible to user '
+  /drawer:
+    post:
+      summary: ''
+      operationId: post-drawer
+      responses:
+        '200':
+          description: OK
+      description: Create a new Drawer
+      tags:
+        - Drawer Management
+    get:
+      summary: Create new drawer
+      tags:
+        - Drawer Management
+  /drawer/all:
+    get:
+      summary: Get all available drawers
+      tags:
+        - Drawer Management
+      responses: {}
+      operationId: get-drawer-all
+      description: ''
+  '/drawer/{jobID}':
+    parameters:
+      - schema:
+          type: string
+        name: jobID
+        in: path
+        required: true
+    get:
+      summary: Get all drawers in the supplied Job
+      tags:
+        - Drawer Management
+      responses: {}
+      operationId: get-drawer-jobID
+  /job:
+    post:
+      summary: Create a Job
+      operationId: post-job
+      responses:
+        '200':
+          description: OK
+      description: ''
+      tags:
+        - Job Management
+    delete:
+      summary: Delete a Job
+      operationId: delete-job
+      responses:
+        '200':
+          description: OK
+      description: ''
+      tags:
+        - Job Management
+  /job/all:
+    get:
+      summary: Get all Jobs
+      tags:
+        - Job Management
+      responses: {}
+      operationId: get-job-all
+      description: ''
+  /job/active:
+    get:
+      summary: Get Active Jobs
+      tags:
+        - Job Management
+      responses: {}
+      operationId: get-job-active
+      description: ''
+    post:
+      summary: Mark Job as Active
+      operationId: post-job-active
+      responses:
+        '200':
+          description: OK
+      description: 'Mark Job as Active. Requires Job ID to activate. '
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: jobId
+      tags:
+        - Job Management
+  /job/inactive:
+    get:
+      summary: Get all inactive jobs
+      tags:
+        - Job Management
+      responses: {}
+      operationId: get-job-inactive
+    post:
+      summary: Mark job as inactive
+      operationId: post-job-inactive
+      responses:
+        '200':
+          description: OK
+      tags:
+        - Job Management
 components:
   schemas:
     User:
@@ -548,6 +647,7 @@ components:
           type: integer
         SecurityAssociations:
           type: array
+          description: Private Property
           items:
             type: string
       required:
@@ -580,3 +680,5 @@ components:
       description: Your unique authentication token provided by the login method
 tags:
   - name: Tool Imaging
+  - name: Drawer Management
+  - name: Job Management
