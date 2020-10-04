@@ -681,6 +681,25 @@ components:
           type: integer
       x-tags:
         - Models
+    Job:
+      title: Job
+      type: object
+      description: 'Jobs contain drawers and are part of the production process. '
+      properties:
+        _id:
+          type: string
+        Name:
+          type: string
+        State:
+          type: integer
+        creationDate:
+          type: integer
+        lastUpdated:
+          type: integer
+        securityAssociations:
+          type: array
+          items:
+            type: string
   securitySchemes:
     Bearer Token:
       name: apiKey
