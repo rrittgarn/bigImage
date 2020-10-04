@@ -814,10 +814,13 @@ components:
       properties:
         _id:
           type: string
+          description: System Generated
         density:
           type: integer
+          description: Foam Density Required
         drawerNotes:
           type: string
+          description: Customer notes on Drawer
         foamColor:
           type: string
         foamThickness:
@@ -842,10 +845,12 @@ components:
           type: string
         securityAssociations:
           type: array
+          description: System Generated
           items:
             type: string
         revisions:
           type: array
+          description: System Generated (not available for Drawer Creation)
           items:
             type: object
             properties:
