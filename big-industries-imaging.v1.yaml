@@ -42,7 +42,7 @@ paths:
                       - planning
                       - purchasing
                     userData:
-                      id: 102
+                      id: '102'
                       fullName: Tom Petty
                       title: Purchasing
                       contactNumber: 800-867-5309
@@ -215,7 +215,7 @@ paths:
       operationId: get-layout-gettool-toolID
       description: 'Will return the tool SVG-ID, as well as the details regarding the tool. '
       security:
-        - Bearer Token: []
+        - Bearer: []
   /layout/gettool:
     get:
       summary: Get all tools available
@@ -227,7 +227,7 @@ paths:
       operationId: get-laout-gettool
       description: Returns all tools available to the user paginated by preference
       security:
-        - Bearer Token: []
+        - Bearer: []
     parameters: []
   /layout/savelayout:
     post:
@@ -240,7 +240,7 @@ paths:
         - Layout
       description: 'Saves all of the current IDs and their positions / rotation on the layout. '
       security:
-        - Bearer Token: []
+        - Bearer: []
   /layout/getsaved:
     get:
       summary: Get saved layouts
@@ -251,7 +251,7 @@ paths:
           description: OK
       operationId: get-layout-getsaved
       security:
-        - Bearer Token: []
+        - Bearer: []
       description: 'Returns a list of saved layouts and their last modified dates. '
   '/layout/getsaved/{layoutID}':
     parameters:
@@ -685,46 +685,39 @@ components:
       type: object
       x-examples:
         Basic User:
-          id: 102
+          id: MasMPtbwGocWRgfknlJ6gey5
+          email: Test@User.com
           fullName: Tom Petty
-          title: Purchasing
-          contactNumber: 800-867-5309
-          securityRole: 22
-          availableBrands:
-            - 101
-            - 102
-            - 103
-        BasicUser with preferences:
-          id: 102
-          fullName: Tom Petty
-          title: Purchasing
-          contactNumber: 800-867-5309
-          securityRole: 22
-          availableBrands:
-            - 101
-            - 102
-            - 103
+          Company: string
+          passwordHash: 1f4f7d63faec5b8e9540a896b943d1dda64309dcc4215a8d2219a1b0d98d875a
+          title: President
+          contactNumber: 917-876-5309
           preferences:
             pageSize: 25
             rememberMe: true
+          security:
+            Role: Site Admin
+            appliedPermissions:
+              - QS16MzTuDiUudNkEHeTaFiju
+              - pMdBXVybKnPp5L1Qu2OTVrV2
       description: 'User object used in multiple calls. Describes permissions, brand availability, and preferences for a user. '
       x-tags:
         - Models
       properties:
         id:
-          type: integer
+          type: string
+        email:
+          type: string
         fullName:
+          type: string
+        Company:
+          type: string
+        passwordHash:
           type: string
         title:
           type: string
         contactNumber:
           type: string
-        securityRole:
-          type: integer
-        availableBrands:
-          type: array
-          items:
-            $ref: '#/components/schemas/Brand'
         preferences:
           type: object
           description: 'If the user has set any UI preferences that should persist between browsers they will save here. '
@@ -735,6 +728,15 @@ components:
             rememberMe:
               type: boolean
               description: If we should save the username in cookies (remember me checkbox)
+        security:
+          type: object
+          properties:
+            Role:
+              type: string
+            appliedPermissions:
+              type: array
+              items:
+                type: string
       required:
         - id
     Brand:
@@ -1048,9 +1050,45 @@ components:
           type: string
       x-tags:
         - Models
+    Audit:
+      title: AuditLog
+      type: object
+      description: Audit log gets added to for every action in the API. We log all requests
+      properties:
+        _id:
+          type: string
+        actionID:
+          type: string
+        eventTime:
+          type: string
+        userID:
+          type: string
+        description:
+          type: string
+        raw:
+          type: object
+          properties:
+            request:
+              type: string
+              description: Requested URI and Method
+            requestContents:
+              type: string
+              description: JSON Contents if any
+      x-examples:
+        example-1:
+          _id: z5R2HW9j7mTvvGufXUh3d6ZC
+          actionID: btoWGpZtZyKu4LpXt6OIyncz
+          eventTime: '1601851107'
+          userID: H1uy35BwN2r0RI2aKTq1dyV1
+          description: 'User saved drawer {drawerID}'
+          raw:
+            request: POST /v1/drawer/7EJ1819z4q6NIRcneOwGYfrx
+            requestContents: '{  "_id": "7EJ1819z4q6NIRcneOwGYfrx",  "density": 2,  "drawerNotes": "Test Drawer 1, completed by User",  "foamColor": "Red",  "foamThickness": "2.25",  "height": "10",  "name": "Test-Drawer-1",  "padColor": "blue",  "padThickness": "0.5",  "parentJobID": "N5Mu5C38clm1pxtW3MPsv7oa",  "plasticTray": false,  "plasticTrayColor": false,  "plasticTrayThickness": false,  "width": "24",}'
+      x-tags:
+        - Models
   securitySchemes:
     Bearer Token:
-      name: apiKey
+      name: 98e421bffd2666f46dbf45085871a2e0b1b9a600
       type: apiKey
       in: header
       description: Your unique authentication token provided by the login method
