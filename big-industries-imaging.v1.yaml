@@ -190,87 +190,6 @@ paths:
       tags:
         - Tool Imaging
     parameters: []
-  '/layout/gettool/{toolID}':
-    parameters:
-      - schema:
-          type: string
-        name: toolID
-        in: path
-        required: true
-    get:
-      summary: Get individual tool by ID
-      tags:
-        - Layout
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-        '404':
-          description: Not Found
-        '500':
-          description: Internal Server Error
-      operationId: get-layout-gettool-toolID
-      description: 'Will return the tool SVG-ID, as well as the details regarding the tool. '
-      security:
-        - Bearer: []
-  /layout/gettool:
-    get:
-      summary: Get all tools available
-      tags:
-        - Layout
-      responses:
-        '200':
-          description: OK
-      operationId: get-laout-gettool
-      description: Returns all tools available to the user paginated by preference
-      security:
-        - Bearer: []
-    parameters: []
-  /layout/savelayout:
-    post:
-      summary: Save Layout
-      operationId: post-layout-savelayout
-      responses:
-        '200':
-          description: OK
-      tags:
-        - Layout
-      description: 'Saves all of the current IDs and their positions / rotation on the layout. '
-      security:
-        - Bearer: []
-  /layout/getsaved:
-    get:
-      summary: Get saved layouts
-      tags:
-        - Layout
-      responses:
-        '200':
-          description: OK
-      operationId: get-layout-getsaved
-      security:
-        - Bearer: []
-      description: 'Returns a list of saved layouts and their last modified dates. '
-  '/layout/getsaved/{layoutID}':
-    parameters:
-      - schema:
-          type: string
-        name: layoutID
-        in: path
-        required: true
-    get:
-      summary: Get saved layout by ID
-      tags:
-        - Layout
-      responses:
-        '200':
-          description: OK
-      operationId: get-layout-getsaved-layoutID
-      security:
-        - Bearer Token: []
-      description: 'Returns the full layout with positional data. '
   '/toolimage/{toolID}':
     parameters:
       - schema:
@@ -452,15 +371,7 @@ paths:
       description: Create a new Job
       tags:
         - Job Management
-    delete:
-      summary: Delete a Job
-      operationId: delete-job
-      responses:
-        '200':
-          description: OK
-      description: Create a new job associated with the currently logged in user
-      tags:
-        - Job Management
+    parameters: []
   /job/all:
     get:
       summary: Get all Jobs
@@ -494,20 +405,6 @@ paths:
               type: array
               items:
                 $ref: '#/components/schemas/Job'
-    post:
-      summary: Mark Job as Active
-      operationId: post-job-active
-      responses:
-        '200':
-          description: OK
-      description: 'Mark Job as Active. Requires Job ID to activate. '
-      parameters:
-        - schema:
-            type: string
-          in: query
-          name: jobId
-      tags:
-        - Job Management
   /job/inactive:
     get:
       summary: Get all inactive jobs
@@ -535,23 +432,6 @@ paths:
       operationId: get-job-inactive
       parameters: []
       description: Get all inactive Jobs
-    post:
-      summary: Mark job as inactive
-      operationId: post-job-inactive
-      responses:
-        '200':
-          description: OK
-      tags:
-        - Job Management
-      description: 'Mark a job as inactive '
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                jobID:
-                  type: string
   '/job/{JobID}':
     parameters:
       - schema:
@@ -572,6 +452,13 @@ paths:
                 $ref: '#/components/schemas/Job'
       operationId: get-job-JobID
       description: Get the job details for the supplied ID
+    delete:
+      summary: ''
+      operationId: delete-job-JobID
+      responses:
+        '200':
+          description: OK
+      description: 'Delete the specified job. '
   '/toolimage/upc/{toolUPC}':
     parameters:
       - schema:
@@ -678,6 +565,34 @@ paths:
                 $ref: '#/components/schemas/Revision'
       operationId: get-drawer-revision-revisionID
       description: 'View the specified Drawer Revision. This is not editable. '
+  '/job/active/{jobId}':
+    parameters:
+      - schema:
+          type: string
+        name: jobId
+        in: path
+        required: true
+    post:
+      summary: Mark job as Active
+      operationId: post-job-active-jobId
+      responses:
+        '200':
+          description: OK
+      description: 'Mark Job as Active. Requires Job ID to activate. '
+  '/job/inactive/{jobId}':
+    parameters:
+      - schema:
+          type: string
+        name: jobId
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-job-inactive-jobId
+      responses:
+        '200':
+          description: OK
+      description: 'Mark a job as inactive '
 components:
   schemas:
     User:
