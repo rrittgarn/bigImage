@@ -361,6 +361,19 @@ paths:
       description: 'Delete an existing job. Note: Delete will only render the job invisible to the user. Administrators will still have visibility into deleted jobs. '
       tags:
         - Drawer Management
+    put:
+      summary: Update an existing drawer.
+      operationId: put-drawer-jobID
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Drawer'
+        description: ''
+      description: 'Update an existing drawer. Requires the ID in the URI, not in the body of the request. '
   /job:
     post:
       summary: Create a Job
@@ -472,7 +485,8 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Drawer'
+              $ref: '#/components/schemas/Job'
+        description: ''
   '/toolimage/upc/{toolUPC}':
     parameters:
       - schema:
