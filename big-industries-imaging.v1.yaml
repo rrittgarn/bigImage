@@ -459,6 +459,20 @@ paths:
         '200':
           description: OK
       description: 'Delete the specified job. '
+    put:
+      summary: Update Existing Job
+      operationId: put-job-JobID
+      responses:
+        '200':
+          description: OK
+        '201':
+          description: Created
+      description: 'Update an existing job with job datastructure. ID is required in the URL, not in the body of the request. '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Drawer'
   '/toolimage/upc/{toolUPC}':
     parameters:
       - schema:
@@ -615,6 +629,9 @@ components:
             appliedPermissions:
               - QS16MzTuDiUudNkEHeTaFiju
               - pMdBXVybKnPp5L1Qu2OTVrV2
+          apiToken:
+            key: 098f9a08df90a8df098df
+            expires: '1602139651'
       description: 'User object used in multiple calls. Describes permissions, brand availability, and preferences for a user. '
       x-tags:
         - Models
@@ -652,6 +669,13 @@ components:
               type: array
               items:
                 type: string
+        apiKey:
+          type: object
+          properties:
+            key:
+              type: string
+            expires:
+              type: integer
       required:
         - id
     Brand:
