@@ -1050,7 +1050,7 @@ components:
       x-tags:
         - Models
   securitySchemes:
-    Bearer Token:
+    'Authorization: Bearer':
       name: 98e421bffd2666f46dbf45085871a2e0b1b9a600
       type: apiKey
       in: header
