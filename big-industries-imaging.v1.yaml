@@ -919,6 +919,8 @@ components:
       x-tags:
         - Models
       properties:
+        drawerId:
+          type: string
         toolData:
           type: array
           items:
@@ -966,6 +968,14 @@ components:
           type: string
         isDeleted:
           type: boolean
+        securityAssociations:
+          type: array
+          items:
+            type: string
+        dateCreated:
+          type: string
+      required:
+        - drawerId
     Revision:
       title: Revision
       type: object
