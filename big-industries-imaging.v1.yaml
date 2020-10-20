@@ -383,9 +383,25 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  description:
+                    type: string
+                  newJobID:
+                    type: string
       description: Create a new Job
       tags:
         - Job Management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Job'
     parameters: []
   /job/all:
     get:
