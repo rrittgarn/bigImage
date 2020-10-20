@@ -468,12 +468,14 @@ paths:
       operationId: get-job-JobID
       description: Get the job details for the supplied ID
     delete:
-      summary: ''
+      summary: Delete a job
       operationId: delete-job-JobID
       responses:
         '200':
           description: OK
       description: 'Delete the specified job. '
+      tags:
+        - Job Management
     put:
       summary: Update Existing Job
       operationId: put-job-JobID
@@ -489,6 +491,8 @@ paths:
             schema:
               $ref: '#/components/schemas/Job'
         description: ''
+      tags:
+        - Job Management
   '/toolimage/upc/{toolUPC}':
     parameters:
       - schema:
@@ -609,6 +613,8 @@ paths:
         '200':
           description: OK
       description: 'Mark Job as Active. Requires Job ID to activate. '
+      tags:
+        - Job Management
   '/job/inactive/{jobId}':
     parameters:
       - schema:
@@ -623,6 +629,8 @@ paths:
         '200':
           description: OK
       description: 'Mark a job as inactive '
+      tags:
+        - Job Management
 components:
   schemas:
     User:
