@@ -834,7 +834,11 @@ components:
           type: string
         foamThickness:
           type: string
-        height:
+        drawerHeight:
+          type: string
+        drawerWidth:
+          type: string
+        drawerDepth:
           type: string
         name:
           type: string
@@ -849,8 +853,6 @@ components:
         plasticTrayColor:
           type: string
         plasticTrayThickness:
-          type: string
-        width:
           type: string
         securityAssociations:
           type: array
