@@ -374,6 +374,8 @@ paths:
               $ref: '#/components/schemas/Drawer'
         description: ''
       description: 'Update an existing drawer. Requires the ID in the URI, not in the body of the request. '
+      tags:
+        - Drawer Management
   /job:
     post:
       summary: Create a Job
