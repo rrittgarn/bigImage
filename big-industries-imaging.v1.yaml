@@ -808,6 +808,8 @@ components:
           type: string
         State:
           type: integer
+        Notes:
+          type: string
         creationDate:
           type: integer
         lastUpdated:
