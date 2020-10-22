@@ -804,23 +804,23 @@ components:
       x-examples:
         Generic Example:
           _id: string
-          Name: string
-          State: 0
-          Notes: string
+          name: string
+          state: 0
+          notes: string
           creationDate: 0
           lastUpdated: 0
           securityAssociations:
             - string
           isActive: true
-          isDeleted: true
+          isDeleted: false
       properties:
         _id:
           type: string
-        Name:
+        name:
           type: string
-        State:
+        state:
           type: integer
-        Notes:
+        notes:
           type: string
         creationDate:
           type: integer
@@ -835,9 +835,9 @@ components:
         isDeleted:
           type: boolean
       required:
-        - Name
-        - State
-        - Notes
+        - name
+        - state
+        - notes
     Drawer:
       title: Drawer
       type: object
