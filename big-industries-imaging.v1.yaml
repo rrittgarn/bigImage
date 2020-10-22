@@ -801,6 +801,18 @@ components:
       description: 'Jobs contain drawers and are part of the production process. '
       x-tags:
         - Models
+      x-examples:
+        Generic Example:
+          _id: string
+          Name: string
+          State: 0
+          Notes: string
+          creationDate: 0
+          lastUpdated: 0
+          securityAssociations:
+            - string
+          isActive: true
+          isDeleted: true
       properties:
         _id:
           type: string
@@ -824,6 +836,8 @@ components:
           type: boolean
       required:
         - Name
+        - State
+        - Notes
     Drawer:
       title: Drawer
       type: object
