@@ -326,7 +326,7 @@ paths:
                   $ref: '#/components/schemas/Drawer'
       operationId: get-drawer-all
       description: Get all drawers available to user (irrespective of job)
-  '/drawer/{jobID}':
+  '/drawer/{drawerID}':
     parameters:
       - schema:
           type: string
@@ -346,8 +346,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Drawer'
-      operationId: get-drawer-jobID
-      description: Get a specific drawer by specified JobID
+      operationId: get-drawer-drawerID
+      description: Get a specific drawer by specified drawerID
     delete:
       summary: ''
       operationId: delete-drawer-jobID
@@ -647,6 +647,19 @@ paths:
       description: 'Mark a job as inactive '
       tags:
         - Job Management
+  '/drawer/byjob/{jobId}':
+    parameters:
+      - schema:
+          type: string
+        name: jobId
+        in: path
+        required: true
+    get:
+      summary: Get all drawers in a Job by Job ID
+      tags: []
+      responses: {}
+      operationId: get-drawer-byjob-jobId
+      description: 'This will return all jobs that are associated with a Job. '
 components:
   schemas:
     User:
@@ -868,6 +881,8 @@ components:
         _id:
           type: string
           description: System Generated
+        jobId:
+          type: string
         density:
           type: integer
           description: Foam Density Required
@@ -913,6 +928,7 @@ components:
                 type: string
         isDeleted:
           type: boolean
+      description: Drawers contain layouts and are organized by jobId
     Layout:
       title: Layout
       description: 'A layout is what we refer to as the contents of the drawer. Within each layout we will have the tools in the positions the customer has placed them. We will also have the ability to make the layout no longer editable by turning it into a revision. Revisions will be available in the Revisions collection / Model '
