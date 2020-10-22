@@ -877,10 +877,13 @@ components:
           revisions:
             - revName: string
           isDeleted: true
+      description: Drawers contain layouts and are organized by jobId
       properties:
         _id:
           type: string
           description: System Generated
+        name:
+          type: string          
         jobId:
           type: string
         density:
@@ -898,8 +901,6 @@ components:
         drawerWidth:
           type: string
         drawerDepth:
-          type: string
-        name:
           type: string
         padColor:
           type: string
@@ -928,7 +929,9 @@ components:
                 type: string
         isDeleted:
           type: boolean
-      description: Drawers contain layouts and are organized by jobId
+      required:
+        - jobId
+        - name
     Layout:
       title: Layout
       description: 'A layout is what we refer to as the contents of the drawer. Within each layout we will have the tools in the positions the customer has placed them. We will also have the ability to make the layout no longer editable by turning it into a revision. Revisions will be available in the Revisions collection / Model '
