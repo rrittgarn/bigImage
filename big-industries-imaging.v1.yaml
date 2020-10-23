@@ -326,7 +326,7 @@ paths:
                   $ref: '#/components/schemas/Drawer'
       operationId: get-drawer-all
       description: Get all drawers available to user (irrespective of job)
-  '/drawer/{drawerID}':
+  '/drawer/{drawerId}':
     parameters:
       - schema:
           type: string
@@ -737,28 +737,6 @@ components:
               type: integer
       required:
         - id
-    Brand:
-      title: Brand
-      type: object
-      x-examples:
-        Brand:
-          brandID: 100
-          brandName: SK
-          brandImage: /resources/brands/logo/small/sk.png
-      properties:
-        brandID:
-          type: integer
-        brandName:
-          type: string
-        brandLogo:
-          type: string
-        active:
-          type: boolean
-          default: true
-          description: 'If a brand is added and is not active, parts associated with that brand will not be visible to all users'
-      x-tags:
-        - Models
-      description: Depricated - Being removed
     Tool:
       title: Tool
       type: object
