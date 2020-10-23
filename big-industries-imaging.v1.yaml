@@ -564,7 +564,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Layout'
-      description: 'Save the drawer layout data to the provided drawerID. '
+      description: 'Save the drawer layout data to the provided drawerID. This endpoint expects a layout data model '
   /logout:
     get:
       summary: Logout
