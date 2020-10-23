@@ -451,15 +451,18 @@ paths:
                 items:
                   $ref: '#/components/schemas/Job'
               examples:
-                Inactive Job list:
+                example-1:
                   value:
                     - _id: string
-                      Name: string
-                      State: 0
+                      name: string
+                      state: 0
+                      notes: string
                       creationDate: 0
                       lastUpdated: 0
                       securityAssociations:
                         - string
+                      isActive: true
+                      isDeleted: true
       operationId: get-job-inactive
       parameters: []
       description: Get all inactive Jobs
@@ -652,7 +655,15 @@ paths:
     get:
       summary: Get all drawers in a Job by Job ID
       tags: []
-      responses: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Drawer'
       operationId: get-drawer-byjob-jobId
       description: 'This will return all jobs that are associated with a Job. '
 components:
