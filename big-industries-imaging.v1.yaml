@@ -563,12 +563,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                id:
-                  type: string
-                layoutData:
-                  $ref: '#/components/schemas/Layout'
+              $ref: '#/components/schemas/Layout'
       description: 'Save the drawer layout data to the provided drawerID. '
   /logout:
     get:
@@ -859,19 +854,21 @@ components:
       x-examples:
         example-1:
           _id: string
+          name: string
+          jobId: string
           density: 0
           drawerNotes: string
           foamColor: string
           foamThickness: string
-          height: string
-          name: string
+          drawerHeight: string
+          drawerWidth: string
+          drawerDepth: string
           padColor: string
           padThickness: string
           parentJobID: string
           plasticTray: string
           plasticTrayColor: string
           plasticTrayThickness: string
-          width: string
           securityAssociations:
             - string
           revisions:
