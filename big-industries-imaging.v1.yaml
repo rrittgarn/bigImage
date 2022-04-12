@@ -192,7 +192,7 @@ paths:
     parameters: []
   .2/toolimage:
     post:
-      summary: Add new captured tool
+      summary: Add new captured tool direct
       operationId: post-v1.2-toolimage
       responses:
         '200':
