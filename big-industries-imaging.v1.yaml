@@ -334,15 +334,15 @@ paths:
         description: |-
           Body should include as much information as possible. 
 
-          "Brand" => Brand name - shown as top level folder in UI \n 
+          "Brand" => Brand name - shown as top level folder in UI <br> 
           "UPC" => Unique Tool Identifier - Usually specific part number <br> 
-          "isSet" => Is the image contained in this SVG a set - usually for sockets
-          "Description" => Human readable description, such as '16" Pipe Wrench' 
-          "Category" => Tool category breakdown, wrenches, sockets, ratchets, saws, etc. 
-          "Unit" => Inches, MM, or not specified 
-          "toolThickness" => Critical for cutting offsets - floating point required, so 1 1/2" = 1.5 Inches
-          "DisplaySVG" => In the event that we need to display a pixel scaled SVG rather than inches, we would store it here
-          "CutSVG" => The SVG we actually plan to cut - stored in SVGs 
+          "isSet" => Is the image contained in this SVG a set - usually for sockets <br>
+          "Description" => Human readable description, such as '16" Pipe Wrench'  <br>
+          "Category" => Tool category breakdown, wrenches, sockets, ratchets, saws, etc. <br> 
+          "Unit" => Inches, MM, or not specified <br>
+          "toolThickness" => Critical for cutting offsets - floating point required, so 1 1/2" = 1.5 Inches <br>
+          "DisplaySVG" => In the event that we need to display a pixel scaled SVG rather than inches, we would store it here <br>
+          "CutSVG" => The SVG we actually plan to cut - stored in SVGs <br>
       tags:
         - Tool Imaging
     parameters: []
