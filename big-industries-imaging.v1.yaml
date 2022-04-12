@@ -334,8 +334,8 @@ paths:
         description: |-
           Body should include as much information as possible. 
 
-          "Brand" => Brand name - shown as top level folder in UI
-          "UPC" => Unique Tool Identifier - Usually specific part number
+          "Brand" => Brand name - shown as top level folder in UI \n 
+          "UPC" => Unique Tool Identifier - Usually specific part number <br> 
           "isSet" => Is the image contained in this SVG a set - usually for sockets
           "Description" => Human readable description, such as '16" Pipe Wrench' 
           "Category" => Tool category breakdown, wrenches, sockets, ratchets, saws, etc. 
