@@ -202,112 +202,90 @@ paths:
             application/json:
               schema:
                 type: array
+                description: ''
+                minItems: 1
+                uniqueItems: true
                 items:
                   type: object
+                  required:
+                    - _id
                   properties:
-                    brandName:
+                    _id:
                       type: string
+                      minLength: 1
+                x-examples:
+                  example-1:
+                    - _id: Williams
+                    - _id: Miscellaneous
+                    - _id: SK
+                    - _id: Grey Pneumatic
+                    - _id: BrandName
+                    - _id: GMTK2
+                    - _id: Proto
+              examples:
+                example-1:
+                  value:
+                    - _id: Williams
+                    - _id: Miscellaneous
+                    - _id: SK
+                    - _id: Grey Pneumatic
+                    - _id: BrandName
+                    - _id: GMTK2
+                    - _id: Proto
       description: Get all available brands
-  .2/toolimage - copy:
-    post:
-      summary: Add new captured tool Direct
-      operationId: post-v1.2-toolimage
+      tags:
+        - Tool Imaging
+  /tool/categories:
+    parameters: []
+    get:
+      summary: Get all currently configured categories
+      operationId: get-tool-categories
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  status:
-                    type: integer
-                    description: 'Should always match the http response code. '
-                  bigToolID:
-                    type: integer
-                    description: 'Big Industries internal id for this new tool '
-              examples:
-                New Tool Success:
-                  value:
-                    status: 200
-                    bigToolID: 202
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                  description:
-                    type: string
+                type: array
+                description: ''
+                minItems: 1
+                uniqueItems: true
+                items:
+                  type: object
+                  required:
+                    - _id
+                  properties:
+                    _id:
+                      type: string
+                      minLength: 1
+                x-examples:
+                  example-1:
+                    - _id: Hammers & Striking Tools
+                    - _id: Screwdrivers & Nut Drivers
+                    - _id: null
+                    - _id: Wrenches
+                    - _id: Pliers
+                    - _id: Prybar
+                    - _id: Undefined
+                    - _id: Sockets
+                    - _id: Ratchets
+                    - _id: Hand Saws
               examples:
                 example-1:
                   value:
-                    status: error
-                    description: required fields missing
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: integer
-                  errorID:
-                    type: integer
-                  errorDescription:
-                    type: string
-      description: 'Store a tool image in the Big Industries tool API. This expects the images to already be scaled and processed. '
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                Brand:
-                  type: string
-                UPC:
-                  type: string
-                isSet:
-                  type: boolean
-                  description: Defaults to FALSE
-                Description:
-                  type: string
-                Category:
-                  type: string
-                  description: Defaults to "Undefined"
-                Unit:
-                  description: Defaults to "NA"
-                  type: string
-                toolThickness:
-                  type: string
-                DisplaySVG:
-                  type: string
-                CutSVG:
-                  type: string
-              required:
-                - Description
-                - toolThickness
-                - CutSVG
-            examples:
-              example-1:
-                value:
-                  Brand: BrandName
-                  UPC: J00000001
-                  isSet: false
-                  Description: Tool description goes here
-                  Category: Undefined
-                  Unit: NA
-                  toolThickness: '1.25'
-                  DisplaySVG: <svg></svg>
-                  CutSVG: <svg></svg>
-        description: 'Body should include as much information as possible. Only Description, toolThickness, and CutSVG are required. '
+                    - _id: Hammers & Striking Tools
+                    - _id: Screwdrivers & Nut Drivers
+                    - _id: null
+                    - _id: Wrenches
+                    - _id: Pliers
+                    - _id: Prybar
+                    - _id: Undefined
+                    - _id: Sockets
+                    - _id: Ratchets
+                    - _id: Hand Saws
+      description: Get all available brands
       tags:
         - Tool Imaging
-    parameters: []
   '/toolimage/{toolID}':
     parameters:
       - schema:
