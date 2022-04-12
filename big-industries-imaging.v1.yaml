@@ -334,7 +334,15 @@ paths:
         description: |-
           Body should include as much information as possible. 
 
-          form-data is expecting an image file (svg) and the accompanying json file. This matches current scanner output. 
+          "Brand" => Brand name - shown as top level folder in UI
+          "UPC" => Unique Tool Identifier - Usually specific part number
+          "isSet" => Is the image contained in this SVG a set - usually for sockets
+          "Description" => Human readable description, such as '16" Pipe Wrench' 
+          "Category" => Tool category breakdown, wrenches, sockets, ratchets, saws, etc. 
+          "Unit" => Inches, MM, or not specified 
+          "toolThickness" => Critical for cutting offsets - floating point required, so 1 1/2" = 1.5 Inches
+          "DisplaySVG" => In the event that we need to display a pixel scaled SVG rather than inches, we would store it here
+          "CutSVG" => The SVG we actually plan to cut - stored in SVGs 
       tags:
         - Tool Imaging
     parameters: []
