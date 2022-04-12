@@ -190,6 +190,106 @@ paths:
       tags:
         - Tool Imaging
     parameters: []
+  .2/toolimage:
+    post:
+      summary: Add new captured tool Direct
+      operationId: post-v1.2-toolimage
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 'Should always match the http response code. '
+                  bigToolID:
+                    type: integer
+                    description: 'Big Industries internal id for this new tool '
+              examples:
+                New Tool Success:
+                  value:
+                    status: 200
+                    bigToolID: 202
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  description:
+                    type: string
+              examples:
+                example-1:
+                  value:
+                    status: error
+                    description: required fields missing
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                  errorID:
+                    type: integer
+                  errorDescription:
+                    type: string
+      description: 'Store a tool image in the Big Industries tool API. This expects the images to already be scaled and processed. '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Brand:
+                  type: string
+                UPC:
+                  type: string
+                isSet:
+                  type: boolean
+                  description: Defaults to FALSE
+                Description:
+                  type: string
+                Category:
+                  type: string
+                  description: Defaults to "Undefined"
+                Unit:
+                  description: Defaults to "NA"
+                  type: string
+                toolThickness:
+                  type: string
+                DisplaySVG:
+                  type: string
+                CutSVG:
+                  type: string
+              required:
+                - Description
+                - toolThickness
+                - CutSVG
+            examples:
+              example-1:
+                value:
+                  Brand: BrandName
+                  UPC: J00000001
+                  isSet: false
+                  Description: Tool description goes here
+                  Category: Undefined
+                  Unit: NA
+                  toolThickness: '1.25'
+                  DisplaySVG: <svg></svg>
+                  CutSVG: <svg></svg>
+        description: 'Body should include as much information as possible. Only Description, toolThickness, and CutSVG are required. '
+      tags:
+        - Tool Imaging
+    parameters: []
   '/toolimage/{toolID}':
     parameters:
       - schema:
