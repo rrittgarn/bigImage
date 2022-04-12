@@ -190,7 +190,25 @@ paths:
       tags:
         - Tool Imaging
     parameters: []
-  .2/toolimage:
+  /tool/brands:
+    parameters: []
+    get:
+      summary: Get all currently configured brands
+      operationId: get-tool-brands
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    brandName:
+                      type: string
+      description: Get all available brands
+  .2/toolimage - copy:
     post:
       summary: Add new captured tool Direct
       operationId: post-v1.2-toolimage
